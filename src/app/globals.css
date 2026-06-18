@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary: #10B981;
+  --color-primary-dark: #059669;
+  --color-secondary: #14B8A6;
+  --color-accent: #84CC16;
+  
+  --color-background-light: #F8FAFC;
+  --color-background-dark: #0F172A;
+  
+  --color-surface-light: #ffffff;
+  --color-surface-dark: #1E293B;
+
+  --color-text-light: #0F172A;
+  --color-text-dark: #F8FAFC;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+}
+
+:root {
+  --background: var(--color-background-light);
+  --foreground: var(--color-text-light);
+  --surface: var(--color-surface-light);
+  --border: #E2E8F0;
+  --ring: var(--color-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: var(--color-background-dark);
+    --foreground: var(--color-text-dark);
+    --surface: var(--color-surface-dark);
+    --border: #334155;
+  }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (prefers-color-scheme: light) {
+  .glass {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+  }
+}
+
+/* Reduced motion accessibility requirement */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
