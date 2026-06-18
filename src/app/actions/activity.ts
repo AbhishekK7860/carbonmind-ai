@@ -76,6 +76,9 @@ export async function logActivity(formData: FormData) {
 
     if (calcError) {
       console.error('Failed to log calculation:', calcError);
+      // Rollback activity log
+      await supabase.from('activity_logs').delete().eq('id', activityLog.id);
+      redirect('/dashboard/log?error=Failed to save carbon calculation.');
     } else {
       const { data: profile } = await supabase
         .from('carbon_profiles')
@@ -98,10 +101,19 @@ export async function logActivity(formData: FormData) {
         .single();
         
       if (beginnerAchievement) {
-        // Will return an error if already unlocked (unique constraint), which is safely ignored.
-        await supabase
+        // Check if already unlocked to avoid constraint error flooding
+        const { data: existingAchieve } = await supabase
           .from('user_achievements')
-          .insert({ user_id: user.id, achievement_id: beginnerAchievement.id });
+          .select('id')
+          .eq('user_id', user.id)
+          .eq('achievement_id', beginnerAchievement.id)
+          .single();
+          
+        if (!existingAchieve) {
+          await supabase
+            .from('user_achievements')
+            .insert({ user_id: user.id, achievement_id: beginnerAchievement.id });
+        }
       }
     }
   }

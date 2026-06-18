@@ -2,9 +2,11 @@ import { createClient } from '@supabase/supabase-js'
 
 // Use anon client for public dictionary tables to allow aggressive caching
 // and avoid Next.js dynamic header constraints during build/cache time.
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-const supabase = createClient(supabaseUrl, supabaseKey)
+const getSupabaseClient = () => {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  return createClient(supabaseUrl, supabaseKey)
+}
 
 export interface EmissionFactor {
   id: string;
@@ -34,6 +36,7 @@ export async function getEmissionFactors(): Promise<EmissionFactor[]> {
     return factorsCache;
   }
 
+  const supabase = getSupabaseClient();
   const { data, error } = await supabase
     .from('emission_factors')
     .select('*')
