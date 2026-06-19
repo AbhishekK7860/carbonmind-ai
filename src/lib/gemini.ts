@@ -26,7 +26,7 @@ function detectPromptInjection(input: string): boolean {
 // Helper for exponential backoff
 const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
 
-export async function generateAIResponse(prompt: string, context: string, userId: string = 'anonymous'): Promise<{ response?: string, error?: string, isSecurityEvent?: boolean }> {
+export async function generateAIResponse(prompt: string, context: string, userId: string = 'anonymous', maxTokens: number = 512): Promise<{ response?: string, error?: string, isSecurityEvent?: boolean }> {
   // Rate Limiting Check
   if (!aiRateLimiter.check(userId)) {
     return { error: 'Rate limit exceeded. Please try again in a minute.' };
@@ -60,6 +60,7 @@ CRITICAL RULES:
         },
         body: JSON.stringify({
           model: "google/gemini-2.5-flash",
+          max_tokens: maxTokens,
           messages: [
             { role: "system", content: systemPrompt },
             { role: "user", content: `Context:\n${cleanContext}\n\nPrompt:\n${prompt}` }

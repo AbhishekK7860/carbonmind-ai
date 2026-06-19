@@ -51,7 +51,7 @@ export async function saveOnboardingData(formData: Record<string, string>) {
   const identity = determineCarbonIdentity(parsed.data)
 
   // Basic estimation of total_emissions_kg based on survey to initialize
-  const initialEmissions = 5000 // Arbitrary placeholder for initial setup
+  const initialEmissions = 0 // Baseline, will be built up by logged activities
 
   const { error: dbError } = await supabase
     .from('carbon_profiles')

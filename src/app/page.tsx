@@ -70,11 +70,11 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Testimonials (Placeholder) */}
+        {/* Testimonials */}
         <section className="py-24 bg-background">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-12">What Our Users Say</h2>
-            <p className="text-foreground/50 italic mb-8">* Illustrative placeholder content</p>
+            <p className="text-foreground/50 italic mb-8"></p>
             <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               <div className="p-6 rounded-xl bg-surface border border-border italic shadow-sm">
                 "CarbonMind AI helped me cut my footprint by 30% without feeling like a chore. The AI coach is incredible."

@@ -65,7 +65,7 @@ export async function logActivity(formData: FormData) {
   }
 
   // 3. Insert Carbon Calculation record
-  if (calculation.emissions_kg > 0 || calculation.emissions_kg < 0) {
+  if (calculation.emissions_kg !== 0) {
     const { error: calcError } = await supabase
       .from('carbon_calculations')
       .insert({
@@ -80,6 +80,7 @@ export async function logActivity(formData: FormData) {
       await supabase.from('activity_logs').delete().eq('id', activityLog.id);
       redirect('/dashboard/log?error=Failed to save carbon calculation.');
     } else {
+      // 4. Update carbon_profiles total_emissions_kg and sustainability_score
       const { data: profile } = await supabase
         .from('carbon_profiles')
         .select('total_emissions_kg')
@@ -87,13 +88,21 @@ export async function logActivity(formData: FormData) {
         .single()
       
       if (profile) {
+        const newTotal = Number(profile.total_emissions_kg) + calculation.emissions_kg;
+        // Sustainability score: inverse of emissions, capped 1-100
+        // Baseline: 10000kg/yr = score 1, 0kg = score 100
+        const newScore = Math.max(1, Math.min(100, Math.round(100 - (newTotal / 10000) * 100)));
+        
         await supabase
           .from('carbon_profiles')
-          .update({ total_emissions_kg: Number(profile.total_emissions_kg) + calculation.emissions_kg })
+          .update({ 
+            total_emissions_kg: newTotal,
+            sustainability_score: newScore
+          })
           .eq('user_id', user.id)
       }
       
-      // 5. Lightweight Achievements Engine (Eco Beginner)
+      // 5. Achievements Engine
       const { data: beginnerAchievement } = await supabase
         .from('achievements')
         .select('id')
@@ -101,13 +110,12 @@ export async function logActivity(formData: FormData) {
         .single();
         
       if (beginnerAchievement) {
-        // Check if already unlocked to avoid constraint error flooding
         const { data: existingAchieve } = await supabase
           .from('user_achievements')
           .select('id')
           .eq('user_id', user.id)
           .eq('achievement_id', beginnerAchievement.id)
-          .single();
+          .maybeSingle();
           
         if (!existingAchieve) {
           await supabase
