@@ -45,7 +45,8 @@ export async function generateAIResponse(prompt: string, context: string, userId
 CRITICAL RULES:
 1. Explain emissions in simple language.
 2. DO NOT fabricate environmental equivalencies. If you reference a numerical equivalency (like tree absorption or laptop usage), you must ONLY use the conversion constants provided in the prompt context. If a specific factor is unavailable, state it is unavailable; DO NOT estimate it.
-3. Be encouraging and concise.`;
+3. Be encouraging and concise.
+4. Adapt all dietary and lifestyle recommendations for an Indian audience. When discussing meat consumption, refer generically to 'meat', 'poultry', or 'mutton'. You must absolutely NOT mention 'beef' or 'pork' under any circumstances.`;
 
   const MAX_RETRIES = 3;
   let attempt = 0;

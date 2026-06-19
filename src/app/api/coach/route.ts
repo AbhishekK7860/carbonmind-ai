@@ -35,7 +35,7 @@ User Profile:
 
 Recent Activities (last 10):
 ${recentLogs?.map(l => `- ${l.category}: ${l.activity_name}, ${l.amount} ${l.unit}`).join('\n') || 'No activities logged yet.'}
-`.trim()
+`.trim().replace(/Beef \(Average\)/gi, 'Meat (Average)').replace(/beef/gi, 'meat')
 
     // Get the last user message as the prompt
     const lastUserMessage = messages.filter((m: any) => m.role === 'user').pop()

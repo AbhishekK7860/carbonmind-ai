@@ -14,7 +14,7 @@ INSERT INTO public.emission_factors (activity_name, category, value, unit, sourc
 ('Natural Gas (Residential)', 'Electricity', 5.302, 'kgCO2e/therm', 'US EPA GHG Emission Factors Hub', 2024),
 
 -- Food (Based on various LCA databases, compiled by Poore & Nemecek, referenced by DEFRA)
-('Beef (Average)', 'Food', 99.48, 'kgCO2e/kg', 'Poore & Nemecek / UK DEFRA', 2024),
+('Meat (Average)', 'Food', 9.87, 'kgCO2e/kg', 'Poore & Nemecek / UK DEFRA', 2024),
 ('Chicken', 'Food', 9.87, 'kgCO2e/kg', 'Poore & Nemecek / UK DEFRA', 2024),
 ('Tofu', 'Food', 3.16, 'kgCO2e/kg', 'Poore & Nemecek / UK DEFRA', 2024),
 ('Rice', 'Food', 4.45, 'kgCO2e/kg', 'Poore & Nemecek / UK DEFRA', 2024),

@@ -7,7 +7,7 @@ import { useState } from "react"
 import { useFormStatus } from "react-dom"
 
 const CATEGORIES = [
-  { name: 'Transport', icon: <Car className="w-5 h-5" />, color: '#10B981', unit: 'miles' },
+  { name: 'Transport', icon: <Car className="w-5 h-5" />, color: '#10B981', unit: 'km' },
   { name: 'Food', icon: <Leaf className="w-5 h-5" />, color: '#84CC16', unit: 'kg' },
   { name: 'Electricity', icon: <Zap className="w-5 h-5" />, color: '#F59E0B', unit: 'kWh' },
   { name: 'Shopping', icon: <ShoppingBag className="w-5 h-5" />, color: '#8B5CF6', unit: 'items' },
@@ -15,11 +15,11 @@ const CATEGORIES = [
 ]
 
 const QUICK_FILL = [
-  { name: 'Gasoline Car', activity: 'Passenger Car (Gasoline)', unit: 'miles', category: 'Transport' },
-  { name: 'EV Car', activity: 'Passenger Car (EV)', unit: 'miles', category: 'Transport' },
-  { name: 'Beef', activity: 'Beef (Average)', unit: 'kg', category: 'Food' },
+  { name: 'Gasoline Car', activity: 'Passenger Car (Gasoline)', unit: 'km', category: 'Transport' },
+  { name: 'EV Car', activity: 'Passenger Car (EV)', unit: 'km', category: 'Transport' },
+  { name: 'Meat', activity: 'Chicken', unit: 'kg', category: 'Food' },
   { name: 'Electricity', activity: 'Grid Electricity', unit: 'kWh', category: 'Electricity' },
-  { name: 'Flight', activity: 'Flight (Short Haul, Economy)', unit: 'miles', category: 'Transport' },
+  { name: 'Flight', activity: 'Flight (Short Haul, Economy)', unit: 'km', category: 'Transport' },
 ]
 
 function SubmitButton() {
@@ -143,7 +143,7 @@ export default function LogActivityPage() {
                 required
                 value={unit}
                 onChange={e => setUnit(e.target.value)}
-                placeholder="miles, kg, kWh..."
+                placeholder="km, kg, kWh..."
                 className="w-full h-11 rounded-xl px-4 text-sm border border-white/10 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/30 transition-all bg-white/5 text-white placeholder:text-white/20"
               />
             </div>

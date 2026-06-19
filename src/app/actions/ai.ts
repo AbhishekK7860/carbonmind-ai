@@ -15,7 +15,9 @@ export async function generateRecommendations(): Promise<void> {
   const { data: logs } = await supabase.from('activity_logs').select('*').eq('user_id', user.id).order('created_at', { ascending: false }).limit(10)
   const { data: calcs } = await supabase.from('carbon_calculations').select('*').in('activity_log_id', logs?.map(l => l.id) || [])
 
-  const context = `User Profile: Identity=${profile?.carbon_identity}, Emissions=${profile?.total_emissions_kg}kg. Recent logs: ${JSON.stringify(logs)}. Calcs: ${JSON.stringify(calcs)}`
+  let context = `User Profile: Identity=${profile?.carbon_identity}, Emissions=${profile?.total_emissions_kg}kg. Recent logs: ${JSON.stringify(logs)}. Calcs: ${JSON.stringify(calcs)}`
+  // Context sanitization for Indian localization
+  context = context.replace(/Beef \(Average\)/gi, 'Meat (Average)').replace(/beef/gi, 'meat');
   const prompt = `Based on the user's profile and recent activity, generate 3 specific, actionable recommendations to reduce carbon emissions. 
   Respond ONLY with a valid JSON array of objects. Do not include markdown formatting or backticks.
   Format each object exactly as: {"title": "string", "description": "string", "estimated_reduction_kg": number, "difficulty_score": number}`

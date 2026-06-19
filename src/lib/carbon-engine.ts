@@ -94,7 +94,8 @@ export async function calculateEmissions(
 
 // Helper methods for specific domains
 export const CarbonEngine = {
-  async calculateTransport(activity: string, miles: number) {
+  async calculateTransport(activity: string, km: number) {
+    const miles = km / 1.60934;
     return calculateEmissions('Transport', activity, miles);
   },
   async calculateFood(activity: string, kg: number) {
