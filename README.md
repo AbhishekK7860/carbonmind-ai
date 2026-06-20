@@ -255,17 +255,6 @@ http://localhost:3000
 
 ---
 
-## 📸 Screenshots
-
-Add screenshots of:
-
-* Dashboard
-* AI Coach
-* Activity Logging
-* AI Insights
-* Challenges Page
-
----
 
 ## 🙌 Acknowledgements
 
