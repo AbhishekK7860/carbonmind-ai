@@ -8,9 +8,9 @@ Built for **Google Virtual PromptWars**, organized by **Hack2Skill** in collabor
 
 ## 🚀 Live Demo
 
-**Deployed Application:** [Add Deployment Link]
+**Deployed Application:** https://hackthon-main-i2idu9qw5-abhishekk7860s-projects.vercel.app/
 
-**GitHub Repository:** [Add GitHub Link]
+**GitHub Repository:** https://github.com/AbhishekK7860/carbonmind-ai
 
 ---
 
